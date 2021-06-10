@@ -2,6 +2,8 @@
 #include <limits.h>
 #include <math.h>
 #include <stdbool.h>
+#include <stddef.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -64,35 +66,33 @@ void free_singly_linked_list(SinglyLinkedListNode* node) {
 }
 
 /***************************************************************************************************************/
-bool compare_lists(SinglyLinkedListNode* head1, SinglyLinkedListNode* head2) {
-    SinglyLinkedListNode *s1 = head1;
-    SinglyLinkedListNode *s2 = head2;
-    int a1 = 0;
-    int a2 = 0;
+SinglyLinkedListNode* mergeLists(SinglyLinkedListNode* head1, SinglyLinkedListNode* head2) {
+    struct SinglyLinkedListNode * last;
+    struct SinglyLinkedListNode *s = (struct SinglyLinkedListNode *)malloc(sizeof(SinglyLinkedListNode));
 
-    if(head1 == NULL && head2 == NULL){ return 1; }
-    else if(head1 == NULL || head2 == NULL){ return 0; }
-    
-    while(s1!=NULL){
-        s1 = s1->next;
-        a1++;
-    }
-    while(s2!=NULL){
-        s2 = s2->next;
-        a2++;
-    }
-
-    if(a1!=a2){ return 0; }
-    else{
-        while(head1!=NULL && head2!=NULL){
-            if(head1->data != head2->data){
-                return 0;
-            }
+    while(head1 != NULL && head2 != NULL){
+        if(head1->data < head2->data){
+            struct SinglyLinkedListNode *p = last;
+            s->data = head1->data;
+            s->next = NULL;
+            last->next = s;
             head1 = head1->next;
+
+        }
+        else if(head1->data > head2->data){
+            struct SinglyLinkedListNode *p = last;
+            s->data = head2->data;
+            s->next = NULL;
+            last->next = s;
             head2 = head2->next;
         }
-        return 1;
+        else if(head1->data == head2->data){
+            
+        }
     }
+
+
+
 }
 /***************************************************************************************************************/
 
@@ -126,7 +126,7 @@ int main()
 
             insert_node_into_singly_linked_list(&llist1, llist1_item);
         }
-
+      
       	SinglyLinkedList* llist2 = malloc(sizeof(SinglyLinkedList));
         llist2->head = NULL;
         llist2->tail = NULL;
@@ -146,10 +146,15 @@ int main()
 
             insert_node_into_singly_linked_list(&llist2, llist2_item);
         }
-      
-        bool result = compare_lists(llist1->head, llist2->head);
 
-        fprintf(fptr, "%d\n", result);
+        SinglyLinkedListNode* llist3 = mergeLists(llist1->head, llist2->head);
+
+        char *sep = " ";
+
+        print_singly_linked_list(llist3, sep, fptr);
+        fprintf(fptr, "\n");
+
+        free_singly_linked_list(llist3);
     }
 
     fclose(fptr);
