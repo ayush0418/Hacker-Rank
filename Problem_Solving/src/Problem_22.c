@@ -68,28 +68,28 @@ void free_singly_linked_list(SinglyLinkedListNode* node) {
 /***************************************************************************************************************/
 SinglyLinkedListNode* mergeLists(SinglyLinkedListNode* head1, SinglyLinkedListNode* head2) {
     
-    SinglyLinkedListNode *listHead = head1;
-
-    if((head1 == NULL) && (head2 == NULL)){ return NULL ; }
-    if((head1 != NULL) && (head2 == NULL)){ return head1; }
-    if((head1 == NULL) && (head2 != NULL)){ return head2; }
+    if(head1 == NULL && head2 == NULL){ return NULL ; }
+    if(head2 == NULL){ return head1; }
+    if(head1 == NULL){ return head2; }
 
      // Ensure that list A starts with the smaller number
     if (head1->data > head2->data) {
-        SinglyLinkedListNode *s = head2;
+        SinglyLinkedListNode *tmp = head2;
         head2 = head1;
-        head1 = s;
+        head1 = tmp;
     }
+
+    SinglyLinkedListNode *listHead = head1;
 
     while (head2) {
         while (head1->next != NULL && head2->data > head1->next->data) {
             head1 = head1->next;
         }
         
-        SinglyLinkedListNode* s = head2->next;
+        SinglyLinkedListNode* P = head2->next;
         head2->next = head1->next;
         head1->next = head2;
-        head2 = s;
+        head2 = P;
     }
     return listHead;
 }
