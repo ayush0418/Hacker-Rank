@@ -29,12 +29,11 @@ struct Node *push(struct Node *top, int x){
     return 0;
 }
 
-char pop(struct Node **top){
+void pop(struct Node **top){
     if (!isEmpty(*top)){
         struct Node *n = *top;
         *top = (*top)->next;
         free(n);
-        return top;
     }
 }
 
@@ -51,11 +50,8 @@ int peek(struct Node *top, int x){
 }
 
 void StackLinkedListTraversal(struct Node *ptr){
-    printf("Stack: ");
-    char q;
     while (ptr != NULL){
-        q = ptr->data;
-        printf("%c ", q);
+        printf("%c ",ptr->data);
         ptr = ptr->next;
     }
 }
@@ -63,43 +59,34 @@ void StackLinkedListTraversal(struct Node *ptr){
 int main(){
     struct Node *top = NULL;
     int n, opr;
-    char ch;
-    printf("\nEnter Queries: ");
     scanf("%d", &n);
 
     while (n--) {
-        printf("\nEnter Operations: ");
         scanf("%d", &opr);
 
         if (opr == 1) {
             char W[1000];
-            printf("\nEnter String(Opr 1): ");
             scanf("%s", &W);
             for (int i = 0; W[i] != '\0'; i++) {
                 top = push(top, W[i]);
             }
-            StackLinkedListTraversal(top);
         }
 
         else if (opr == 2){
             int k;
-            printf("\nEnter deleting number(Opr 2): ");
             scanf("%d", &k);
             for (int i = 0; i < k; i++) {
                 pop(&top);
             }
-            StackLinkedListTraversal(top);
         }
         
         else if (opr == 3){
             int k;
             char peek_ch;
-            printf("\nEnter peek number(Opr 3): ");
             scanf("%d", &k);
             peek_ch = peek(top, k);
-            printf("%c",peek_ch);
+            printf("%c\n",peek_ch);
         }
-        StackLinkedListTraversal(top);
     }
     return 0;
 }
