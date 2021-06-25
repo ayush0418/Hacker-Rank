@@ -15,10 +15,12 @@ int main(){
     else if(year == 1918){
         printf("26.09.%d",year);
     }
-    else if((year%4 == 0) && (year%100 !=0 || year%400 != 0)){
+    else{
+        if((year%4 == 0 && year%100 !=0) || year%400 == 0){
             printf("12.09.%d",year);
-    }
-    else if((year%4 == 0) && (year%100 ==0 || year%400 == 0)){
+        }
+        else{
             printf("13.09.%d",year);
+        }
     }
 }
