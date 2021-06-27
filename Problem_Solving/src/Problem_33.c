@@ -58,24 +58,36 @@ void StackLinkedListTraversal(struct Node *ptr){
 
 int main(){
     struct Node *top = NULL;
+    struct Node *operations = NULL;          
+    struct Node *delete = NULL;                      
+    struct Node *insert = NULL;
+    struct Node *deleteElements = NULL; 
     int n, opr;
     scanf("%d", &n);
 
     while (n--) {
         scanf("%d", &opr);
 
+        if(opr == 1 || opr ==2){
+            operations = push(operations,opr);
+        }
+
         if (opr == 1) {
-            char W[1000];
-            scanf("%s", &W);
-            for (int i = 0; W[i] != '\0'; i++) {
-                top = push(top, W[i]);
+            char q[1000];
+            scanf("%s", &q);
+            int r = strlen(q);
+            insert = push(insert,r);
+            for (int i = 0; q[i] != '\0'; i++) {
+                top = push(top, q[i]);
             }
         }
 
         else if (opr == 2){
-            int k;
-            scanf("%d", &k);
-            for (int i = 0; i < k; i++) {
+            int p;
+            scanf("%d", &p);
+            delete = push(delete,p);
+            for (int i = 0; i < p; i++){
+                deleteElements = push(deleteElements,top->data);
                 pop(&top);
             }
         }
@@ -86,6 +98,28 @@ int main(){
             scanf("%d", &k);
             peek_ch = peek(top, k);
             printf("%c\n",peek_ch);
+        }
+        
+        else if(opr == 4){
+            int lastOpr = operations->data;
+            pop(&operations);
+
+            if(lastOpr == 1){ 
+                int lastQ = insert->data;
+                pop(&insert);  
+                for(int i=0;i<lastQ;i++){
+                    pop(&top);
+                }
+            }
+
+            else if(lastOpr == 2){ 
+                int lastP = delete->data;
+                pop(&delete);
+                for (int i = 0; i < lastP; i++) {
+                    top = push(top,deleteElements->data);
+                    pop(&deleteElements);
+                }
+            }
         }
     }
     return 0;
