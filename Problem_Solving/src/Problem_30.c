@@ -40,9 +40,13 @@ void pop(struct Node **top){
     }
 }
 
-void stackTop(struct Node *ptr){
+int stackTop(struct Node *ptr){
     long int new = ptr->data;
-    printf("%ld\n", new);
+    return new;
+}
+
+int max(int num1, int num2){
+    return (num1 > num2 ) ? num1 : num2;
 }
 
 int main(){
@@ -55,15 +59,24 @@ int main(){
 
     for (int i = 0; i < n; i++){
         scanf("%d", &x);
+        
         if (x == 1){
             scanf("%ld", &val);
-            top = push(top, val);
+            if(isEmpty(top)){
+                top = push(top, val);
+            }
+            else{
+                top = push( top, max(val, stackTop(top)) );
+            }
         }
+        
         if (x == 2){
             pop(&top);
         }
+        
         if (x == 3){
-            stackTop(top);
+            int y = stackTop(top);
+            printf("%d\n",y);
         }
     }
     return 0;
