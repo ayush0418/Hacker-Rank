@@ -3,20 +3,20 @@
 
 int balancedSums(int *a,int n){
     
-    for(int i=0;i<n;i++){
-        int sum  = 0;
-        int left = 0;
-        for(int j=i+1;j<n;j++){
-            sum  = sum + a[j]; 
-        }
-        for(int k = i-1;k>=0;k--){
-            left = left + a[k];
-        }
+    int sum  = 0;
 
-        if(sum == left){
+    for(int i=0;i<n;i++){
+        sum = sum + a[i];
+    }
+
+    int leftSum = 0;
+    for(int i=0;i<n;i++){
+        if(leftSum == sum - leftSum - a[i]){
             return 1;
         }
+        leftSum = leftSum + a[i];
     }
+    
     return 0;
 }
 
