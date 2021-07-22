@@ -8,11 +8,6 @@ int main(){
     getline(cin,s);
 
     for(int i=0;i<s.size();i++){
-        cout<<s[i];
-    }
-    cout<<endl;
-
-    for(int i=0;i<s.size();i++){
         if(s[i] >= 'a' && s[i] <='z'){
             a[s[i] - 'a'] = 1;
         }
@@ -23,10 +18,9 @@ int main(){
 
     for(int i=0;i<26;i++){
         if( !(a[i] == 1) ){
-            cout<<"Not Annagram";
+            cout<<"not pangram";
             return 0;
         }
     }
-    cout<<"Annagram";
-
+    cout<<"pangram";
 }
